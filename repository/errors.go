@@ -1,0 +1,8 @@
+package repository
+
+import "errors"
+
+var (
+	ErrNotFound      = errors.New("task not found")
+	ErrAlreadyExists = errors.New("task already exists")
+)

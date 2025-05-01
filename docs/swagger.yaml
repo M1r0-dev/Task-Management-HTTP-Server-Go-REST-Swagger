@@ -1,0 +1,183 @@
+basePath: /
+definitions:
+  types.GetResultHandlerResponse:
+    properties:
+      result:
+        type: string
+    type: object
+  types.GetStatusHandlerResponse:
+    properties:
+      status:
+        type: string
+    type: object
+  types.PostObjectHandlerRequest:
+    properties:
+      code:
+        type: string
+      compiler:
+        type: string
+    type: object
+  types.PostObjectHandlerResponse:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
+  types.PutObjectHandlerRequest:
+    properties:
+      code:
+        type: string
+      compiler:
+        type: string
+    type: object
+  types.PutObjectHandlerResponse:
+    properties:
+      id:
+        type: string
+      status:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server.
+  title: My API
+  version: "1.0"
+paths:
+  /task:
+    post:
+      consumes:
+      - application/json
+      description: Создать новую задачу с переданным кодом и компилятором.
+      parameters:
+      - description: Данные задачи
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.PostObjectHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.PostObjectHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Создание задачи
+      tags:
+      - task
+    put:
+      consumes:
+      - application/json
+      description: Создать новую задачу с переданным кодом и компилятором. После создания
+        возвращает ID и начальный статус.
+      parameters:
+      - description: Данные задачи
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/types.PutObjectHandlerRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.PutObjectHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Создание или обновление задачи
+      tags:
+      - task
+  /task/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удалить задачу по указанному ID.
+      parameters:
+      - description: ID задачи
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad request
+          schema:
+            type: string
+      summary: Удаление задачи
+      tags:
+      - task
+  /task/result:
+    get:
+      consumes:
+      - application/json
+      description: Получить результат выполнения задачи по указанному ID.
+      parameters:
+      - description: ID задачи
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.GetResultHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Получение результата задачи по ID
+      tags:
+      - task
+  /task/status:
+    get:
+      consumes:
+      - application/json
+      description: Получить статус задачи по указанному ID.
+      parameters:
+      - description: ID задачи
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/types.GetStatusHandlerResponse'
+        "400":
+          description: Bad request
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: Получение статуса задачи по ID
+      tags:
+      - task
+swagger: "2.0"
