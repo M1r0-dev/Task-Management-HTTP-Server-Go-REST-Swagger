@@ -1,23 +1,26 @@
-FROM golang:1.24-alpine AS build
+FROM golang:1.21-alpine AS builder
 
-WORKDIR /build
+WORKDIR /app
 
-COPY go.mod go.sum ./
-
+COPY ../../go.mod ../../go.sum ./
 RUN go mod download
 
-COPY . .
+COPY ../../ .
 
-RUN apk add --no-cache make
+WORKDIR /app/cmd/app
 
-RUN go build main.go
+RUN go install github.com/swaggo/swag/cmd/swag@latest
+RUN swag init --generalInfo main.go --output ../../docs
 
-FROM alpine AS runner
+RUN go build -o /app/server .
 
-WORKDIR app
+FROM alpine:latest
 
-RUN apk add --no-cache curl
+WORKDIR /app
 
-COPY --from=build /build/main ./main
+COPY --from=builder /app/server .
+COPY --from=builder /app/cmd/app/config.yaml .
 
-CMD ["/app/main" ]
+EXPOSE 8080
+
+CMD ["./server", "-config=config.yaml"]
