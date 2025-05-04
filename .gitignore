@@ -1,0 +1,9 @@
+# Бинарные файлы
+http_server_arch
+*.exe
+*.out
+*.test
+/app
+
+# Временные или системные файлы
+README.md:Zone.*
