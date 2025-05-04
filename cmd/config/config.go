@@ -28,8 +28,9 @@ func MustLoad(cfgPath string, cfg any) {
 	}
 }
 
+var configPath = flag.String("config", "", "Path to config")
+
 func ParseFlags() AppFlags {
-	configPath := flag.String("config", "", "Path to config")
 	return AppFlags{
 		ConfigPath: *configPath,
 	}
