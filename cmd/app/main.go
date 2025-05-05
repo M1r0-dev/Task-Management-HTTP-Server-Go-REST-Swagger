@@ -1,3 +1,9 @@
+// @title My API
+// @version 1.0
+// @description This is a sample server.
+
+// @host localhost:8080
+// @BasePath /
 package main
 
 import (
@@ -16,12 +22,6 @@ import (
 	pkgHttp "http_server_arch/pkg/http"
 )
 
-// @title My API
-// @version 1.0
-// @description This is a sample server.
-
-// @host localhost:8080
-// @BasePath /
 func main() {
 	flag.Parse()
 	AppFlags := config.ParseFlags()

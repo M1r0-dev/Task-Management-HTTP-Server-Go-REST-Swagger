@@ -154,7 +154,7 @@ func (s *Object) postHandler(w http.ResponseWriter, r *http.Request) {
 // @Param id path string true "ID задачи"
 // @Success 200 {string} string "OK"
 // @Failure 400 {string} string "Bad request"
-// @Router /task [delete]
+// @Router /task/{id} [delete]
 func (s *Object) deleteHandler(w http.ResponseWriter, r *http.Request) {
 	request, err := types.CreateDeleteObjectHandlerRequest(r)
 	if err != nil {
