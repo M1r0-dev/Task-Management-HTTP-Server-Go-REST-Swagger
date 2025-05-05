@@ -38,6 +38,12 @@ func (s *Object) getStatusHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	task, err := s.service.Get(request.ID)
+
+	if task == nil {
+		http.Error(w, "Task not found", http.StatusNotFound)
+		return
+	}
+
 	types.ProcessError(w, err, &types.GetStatusHandlerResponse{
 		Status: &task.Status})
 }
@@ -61,6 +67,12 @@ func (s *Object) getResultHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	task, err := s.service.Get(request.ID)
+
+	if task == nil {
+		http.Error(w, "Task not found", http.StatusNotFound)
+		return
+	}
+
 	types.ProcessError(w, err, &types.GetResultHandlerResponse{
 		Result: &task.Result})
 }
